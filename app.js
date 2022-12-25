@@ -5,6 +5,7 @@ require('express-async-errors')
 
 // Rest of package
 const morgan = require('morgan')
+const cookiePraser = require('cookie-parser')
 
 // DATABASE CONNECTION
 const connect = require('./db/connect')
@@ -19,9 +20,11 @@ const errorHandlerMiddleware = require('./middleware/error-handler')
 
 app.use(morgan('tiny'))
 app.use(express.json())
+app.use(cookiePraser(process.env.JWT_SECRET))
 
 
 app.get("/", (req,res) =>{
+    console.log(req.signedCookies);
     res.send("HOME")
 })
 
