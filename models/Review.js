@@ -18,15 +18,17 @@ const reviewSchema = mongoose.Schema({
         required: [true, "please provide review text"]
     },
     user: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true,
     },
     product: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: 'Product',
         required: true,
     }
 }, {timestamps: true});
+
+reviewSchema.index({product: 1, user: 1}, {unique: true})
 
 module.exports = mongoose.model("Review", reviewSchema)
